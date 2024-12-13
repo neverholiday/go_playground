@@ -1,0 +1,16 @@
+with-expecter: true
+packages:
+    go_mockery/cmd/watch/app:
+        # place your package-specific config here
+        config:
+        interfaces:
+            # select the interfaces you want mocked
+            IWatch:
+                # Modify package-level config for this specific interface (if applicable)
+                config:
+                  dir: mocks/cmd/watch/app
+                  inpackage: True
+                  issue-845-fix: True
+                  
+
+                  

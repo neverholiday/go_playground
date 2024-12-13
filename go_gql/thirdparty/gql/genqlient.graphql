@@ -1,0 +1,24 @@
+query QueryCharacters {
+  characters(page: 2, filter: {name: "rick"}) {
+    info {
+      count
+    }
+    results {
+      name
+    }
+  }
+}
+
+
+query ListEpisode {
+  episodes(page: 1) {
+    info {
+      pages
+    }
+    results {
+      name
+      episode
+      air_date
+    }
+  }
+}

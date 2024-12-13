@@ -1,0 +1,1 @@
+export MYAPP_OPENAI_APIKEY=$(cat apikey)

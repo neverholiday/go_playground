@@ -1,0 +1,4 @@
+schema: thirdparty/gql/schema.graphql
+operations:
+- thirdparty/gql/genqlient.graphql
+generated: thirdparty/gql/generated.go
