@@ -14,7 +14,6 @@ import (
 )
 
 func main() {
-
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
 
@@ -32,19 +31,22 @@ func main() {
 	}
 	defer ua.Close()
 
+	var uri sip.Uri
+
+	err = sip.ParseUri("sip:111@127.0.0.1:5090;transport=tcp", &uri)
+	if err != nil {
+		panic(err)
+	}
+
 	tu := diago.NewDiago(ua, diago.WithTransport(diago.Transport{
 		Transport: "tcp",
 		BindHost:  "localhost",
-		BindPort:  5090,
+		BindPort:  5060,
 	}))
-	tu.Serve(ctx, func(inDialog *diago.DialogServerSession) {
-		log.Info().Str("id", inDialog.ID).Msg("New dialog request")
-
-		inDialog.Progress()
-		inDialog.Answer()
-		inDialog.Bye(ctx)
-
-		defer log.Info().Str("id", inDialog.ID).Msg("Dialog finished")
-	})
+	client, err := tu.Invite(ctx, uri, diago.InviteOptions{})
+	if err != nil {
+		panic(err)
+	}
+	_ = client
 
 }
