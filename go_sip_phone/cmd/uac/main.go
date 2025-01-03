@@ -9,11 +9,23 @@ import (
 	"github.com/emiago/diago"
 	"github.com/emiago/sipgo"
 	"github.com/emiago/sipgo/sip"
+	"github.com/kelseyhightower/envconfig"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
 
+type EnvCfg struct {
+	SIPUri string `envconfig:"SIP_URI" required:"true"`
+}
+
 func main() {
+
+	var envCfg EnvCfg
+	err := envconfig.Process("GO_SIP_PHONE_UAC", &envCfg)
+	if err != nil {
+		panic(err)
+	}
+
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
 
@@ -33,7 +45,7 @@ func main() {
 
 	var uri sip.Uri
 
-	err = sip.ParseUri("sip:111@127.0.0.1:5090;transport=tcp", &uri)
+	err = sip.ParseUri(envCfg.SIPUri, &uri)
 	if err != nil {
 		panic(err)
 	}

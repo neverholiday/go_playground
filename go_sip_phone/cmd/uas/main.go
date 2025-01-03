@@ -34,8 +34,8 @@ func main() {
 
 	tu := diago.NewDiago(ua, diago.WithTransport(diago.Transport{
 		Transport: "tcp",
-		BindHost:  "localhost",
-		BindPort:  5090,
+		BindHost:  "0.0.0.0",
+		BindPort:  5060,
 	}))
 	tu.Serve(ctx, func(inDialog *diago.DialogServerSession) {
 		log.Info().Str("id", inDialog.ID).Msg("New dialog request")

@@ -1,0 +1,21 @@
+services:
+
+  uas:
+    build:
+      context: .
+      args:
+        BUILD_TARGET: cmd/uas/main.go
+    networks: 
+      - go_sip_phone
+  
+  uac:
+    build:
+      context: .
+      args:
+        BUILD_TARGET: cmd/uac/main.go
+    networks: 
+      - go_sip_phone
+    env_file: .env
+
+networks:
+  go_sip_phone:
