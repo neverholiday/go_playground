@@ -44,7 +44,6 @@ func main() {
 	defer ua.Close()
 
 	var uri sip.Uri
-
 	err = sip.ParseUri(envCfg.SIPUri, &uri)
 	if err != nil {
 		panic(err)
@@ -55,6 +54,7 @@ func main() {
 		BindHost:  "localhost",
 		BindPort:  5060,
 	}))
+
 	client, err := tu.Invite(ctx, uri, diago.InviteOptions{})
 	if err != nil {
 		panic(err)

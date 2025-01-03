@@ -37,6 +37,7 @@ func main() {
 		BindHost:  "0.0.0.0",
 		BindPort:  5060,
 	}))
+
 	tu.Serve(ctx, func(inDialog *diago.DialogServerSession) {
 		log.Info().Str("id", inDialog.ID).Msg("New dialog request")
 
