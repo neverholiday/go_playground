@@ -19,10 +19,15 @@ func main() {
 	defer cancel()
 
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixMicro
-	log.Logger = zerolog.New(zerolog.ConsoleWriter{
-		Out:        os.Stdout,
-		TimeFormat: time.StampMicro,
-	}).With().Timestamp().Logger().Level(0)
+	log.Logger = zerolog.New(
+		zerolog.ConsoleWriter{
+			Out:        os.Stdout,
+			TimeFormat: time.StampMicro,
+		},
+	).With().
+		Timestamp().
+		Logger().
+		Level(0)
 
 	sip.SIPDebug = true
 
@@ -32,11 +37,16 @@ func main() {
 	}
 	defer ua.Close()
 
-	tu := diago.NewDiago(ua, diago.WithTransport(diago.Transport{
-		Transport: "tcp",
-		BindHost:  "0.0.0.0",
-		BindPort:  5060,
-	}))
+	tu := diago.NewDiago(
+		ua,
+		diago.WithTransport(
+			diago.Transport{
+				Transport: "tcp",
+				BindHost:  "0.0.0.0",
+				BindPort:  5060,
+			},
+		),
+	)
 
 	tu.Serve(ctx, func(inDialog *diago.DialogServerSession) {
 		log.Info().Str("id", inDialog.ID).Msg("New dialog request")

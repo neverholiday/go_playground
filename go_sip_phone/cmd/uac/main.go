@@ -30,10 +30,15 @@ func main() {
 	defer cancel()
 
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixMicro
-	log.Logger = zerolog.New(zerolog.ConsoleWriter{
-		Out:        os.Stdout,
-		TimeFormat: time.StampMicro,
-	}).With().Timestamp().Logger().Level(0)
+	log.Logger = zerolog.New(
+		zerolog.ConsoleWriter{
+			Out:        os.Stdout,
+			TimeFormat: time.StampMicro,
+		},
+	).With().
+		Timestamp().
+		Logger().
+		Level(0)
 
 	sip.SIPDebug = true
 
@@ -49,11 +54,16 @@ func main() {
 		panic(err)
 	}
 
-	tu := diago.NewDiago(ua, diago.WithTransport(diago.Transport{
-		Transport: "tcp",
-		BindHost:  "localhost",
-		BindPort:  5060,
-	}))
+	tu := diago.NewDiago(
+		ua,
+		diago.WithTransport(
+			diago.Transport{
+				Transport: "tcp",
+				BindHost:  "localhost",
+				BindPort:  5060,
+			},
+		),
+	)
 
 	client, err := tu.Invite(ctx, uri, diago.InviteOptions{})
 	if err != nil {
