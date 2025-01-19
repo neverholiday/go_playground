@@ -36,11 +36,11 @@ func main() {
 	)
 
 	e := echo.New()
-	g := e.Group("/api/v1")
+	v1g := e.Group("/api/v1")
 
 	apis.
 		NewStudentAPI(studentRepo).
-		Setup(g)
+		Setup(v1g)
 
 	e.Logger.Fatal(e.Start(":3000"))
 }
