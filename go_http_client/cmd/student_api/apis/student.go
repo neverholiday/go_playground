@@ -9,7 +9,7 @@ import (
 )
 
 type IStudentRepo interface {
-	CreateStudent(ctx context.Context, req model.StudentCreateRequest) (*model.StudentCreateResponse, error)
+	CreateStudent(ctx context.Context, req model.StudentCreateRequest, timeout int64) (*model.StudentCreateResponse, error)
 }
 
 type StudentAPI struct {
@@ -44,6 +44,7 @@ func (s *StudentAPI) createStudent(c echo.Context) error {
 	resp, err := s.studentRepo.CreateStudent(
 		ctx,
 		req,
+		2, // second
 	)
 	if err != nil {
 		return c.JSON(

@@ -6,6 +6,7 @@ import (
 	"go_http_client/cmd/student_api/apis"
 	"go_http_client/cmd/student_api/model"
 	"go_http_client/cmd/student_api/repository"
+	"net/http"
 
 	"github.com/kelseyhightower/envconfig"
 	"github.com/labstack/echo/v4"
@@ -30,7 +31,10 @@ func main() {
 		panic(err)
 	}
 
+	client := http.DefaultClient
+
 	studentRepo := repository.NewStudentRepo(
+		client,
 		envCfg.Endpoint,
 		authHeader,
 	)
