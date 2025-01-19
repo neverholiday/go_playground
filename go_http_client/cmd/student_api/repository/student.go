@@ -8,10 +8,15 @@ import (
 )
 
 type StudentRepo struct {
+	Endpoint   string
+	AuthHeader map[string]string
 }
 
-func NewStudentRepo() *StudentRepo {
-	return &StudentRepo{}
+func NewStudentRepo(endpoint string, authHeader map[string]string) *StudentRepo {
+	return &StudentRepo{
+		Endpoint:   endpoint,
+		AuthHeader: authHeader,
+	}
 }
 
 func (r *StudentRepo) CreateStudent(ctx context.Context, req model.StudentCreateRequest) (*model.StudentCreateResponse, error) {
