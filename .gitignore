@@ -1,3 +1,4 @@
 *.json
 apikey
 *.mp3
+.env*
