@@ -36,4 +36,31 @@ func main() {
 		fmt.Printf("%s\n", item.Name)
 	}
 
+	model := "gemini-2.0-flash-lite-001"
+	prompt := "Introduce yourself in 1-2 sentences."
+
+	t, err := client.Models.CountTokens(
+		ctx,
+		model,
+		genai.Text(prompt),
+		nil,
+	)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(fmt.Sprintf("total token: %d", t.TotalTokens))
+
+	resp, err := client.Models.GenerateContent(
+		ctx,
+		model,
+		genai.Text(prompt),
+		nil,
+	)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(resp.Text())
+
 }
