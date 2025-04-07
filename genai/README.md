@@ -3,7 +3,12 @@
 ## Env variable
 Please create .env following by
 ```sh
-GENAI_API_KEY=<YOUR_API_KEY>
+GENAI_PROJECT_ID=
+GENAI_MODEL_ID=
+GENAI_LOCATION=
+GENAI_CREDENTIALS_FILE=
+GENAI_API_KEY=
+
 ```
 
 ## How to run ?
